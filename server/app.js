@@ -14,5 +14,8 @@ main().catch((err) => console.error(err))
 
 app.get("/", (req, res) => res.send("Hello World!"))
 
+const authRouter = require("./routes/auth")
+app.use("/api", authRouter)
+
 const PORT = process.env.PORT || 3000
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`))
