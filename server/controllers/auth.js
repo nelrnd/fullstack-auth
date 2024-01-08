@@ -21,16 +21,35 @@ exports.register = async (req, res) => {
 }
 
 exports.login = async (req, res) => {
-  const user = await User.findOne({ email: req.body.email })
-  if (!user) {
-    return res.status(404).json({ message: "User not found" })
-  }
-  const match = bcrypt.compareSync(req.body.password, user.password)
-  if (!match) {
-    return res.status(401).json({ message: "Invalid password" })
-  }
-  const SECRET = process.env.SECRET
-  const token = jwt.sign({ id: user._id, email: user.email }, SECRET)
+  try {
+    const user = await User.findOne({ email: req.body.email })
+    if (!user) {
+      return res.status(404).json({ message: "User not found" })
+    }
+    const match = bcrypt.compareSync(req.body.password, user.password)
+    if (!match) {
+      return res.status(401).json({ message: "Invalid password" })
+    }
+    const SECRET = process.env.SECRET
+    const token = jwt.sign({ id: user._id, email: user.email }, SECRET)
 
-  res.json({ message: "Login successful", token })
+    res.json({ message: "Login successful", token })
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ error: "Error while logging in" })
+  }
+}
+
+exports.protect = async (req, res, next) => {
+  try {
+    const token = req.headers.authorization.split(" ")[1]
+    const SECRET = process.env.SECRET
+    const decodedToken = jwt.verify(token, SECRET)
+    const user = decodedToken
+    req.user = user
+    next()
+  } catch (error) {
+    console.error(error)
+    res.status(401).json({ error: "Not authorized" })
+  }
 }
