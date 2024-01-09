@@ -1,4 +1,4 @@
-const Input = ({ type = text, label, value, setValue }) => {
+const Input = ({ type = "text", label, value, setValue }) => {
   const handleChange = (e) => setValue(e.target.value)
 
   return (
