@@ -4,6 +4,9 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import Login from "./Login.jsx"
 import Register from "./Register.jsx"
 import Dashboard from "./Dashboard.jsx"
+import AuthRoute from "./AuthRoute.jsx"
+import PublicComponent from "./PublicComponent.jsx"
+import PrivateComponent from "./PrivateComponent.jsx"
 
 const router = createBrowserRouter([
   {
@@ -15,8 +18,22 @@ const router = createBrowserRouter([
     element: <Register />,
   },
   {
-    path: "/dashboard",
-    element: <Dashboard />,
+    path: "/public",
+    element: <PublicComponent />,
+  },
+  {
+    // protected routes
+    element: <AuthRoute />,
+    children: [
+      {
+        path: "/dashboard",
+        element: <Dashboard />,
+      },
+      {
+        path: "/private",
+        element: <PrivateComponent />,
+      },
+    ],
   },
 ])
 
