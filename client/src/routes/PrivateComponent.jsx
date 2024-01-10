@@ -19,10 +19,10 @@ const PrivateRoute = () => {
   }, [])
 
   return (
-    <>
-      <h1>Private</h1>
-      {message && <p>{message}</p>}
-    </>
+    <div className="max-w-lg m-auto mt-8">
+      <h1 className="font-bold text-3xl mb-4">Private</h1>
+      {message && <p className="text-gray-600">{message}</p>}
+    </div>
   )
 }
 

@@ -1,5 +1,5 @@
 import { useState } from "react"
-import Input from "./Input"
+import Input from "../components/Input"
 import { Link, useNavigate } from "react-router-dom"
 import axios from "axios"
 
@@ -26,10 +26,10 @@ const Login = () => {
   }
 
   return (
-    <>
-      <h1>Login</h1>
+    <div className="mt-8 max-w-sm m-auto">
+      <h1 className="font-bold text-3xl mb-6">Login</h1>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="mb-6">
         <Input type="email" label="Email" value={email} setValue={setEmail} />
         <Input
           type="password"
@@ -37,13 +37,16 @@ const Login = () => {
           value={password}
           setValue={setPassword}
         />
-        <button>Login</button>
+        <button className="btn-primary">Login</button>
       </form>
 
-      <p>
-        Don&apos;t have an account yet? <Link to="/register">Register</Link>
+      <p className="text-slate-600 mb-6">
+        Don&apos;t have an account yet?{" "}
+        <Link to="/register" className="text-indigo-800 hover:text-indigo-900">
+          Register
+        </Link>
       </p>
-    </>
+    </div>
   )
 }
 

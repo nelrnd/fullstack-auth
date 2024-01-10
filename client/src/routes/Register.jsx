@@ -1,5 +1,5 @@
 import { useState } from "react"
-import Input from "./Input"
+import Input from "../components/Input"
 import axios from "axios"
 import { Link } from "react-router-dom"
 
@@ -28,10 +28,10 @@ const Register = () => {
   }
 
   return (
-    <>
-      <h1>Register</h1>
+    <div className="mt-8 max-w-sm m-auto">
+      <h1 className="font-bold text-3xl mb-6">Register</h1>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="mb-6">
         <Input label="First name" value={firstName} setValue={setFirstName} />
         <Input label="Last name" value={lastName} setValue={setLastName} />
         <Input type="email" label="Email" value={email} setValue={setEmail} />
@@ -41,15 +41,18 @@ const Register = () => {
           value={password}
           setValue={setPassword}
         />
-        <button>Register</button>
+        <button className="btn-primary">Register</button>
       </form>
 
-      <p>
-        Have an account already? <Link to="/login">Login</Link>
+      <p className="text-slate-600 mb-6">
+        Have an account already?{" "}
+        <Link to="/login" className="text-indigo-800 hover:text-indigo-900">
+          Login
+        </Link>
       </p>
 
       {message && <p>{message}</p>}
-    </>
+    </div>
   )
 }
 
